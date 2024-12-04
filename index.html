@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Senhas e Nomenclaturas</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Commit+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="loginPopup" class="popup">
+        <div class="popup-content">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <label for="username">Usuário:</label>
+                <input type="text" id="username" required>
+                <label for="password">Senha:</label>
+                <input type="password" id="password" required>
+                <button type="submit">Entrar</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="app" class="container">
+        <header>
+            <h1>Gerenciador de Senhas e Nomenclaturas</h1>
+            <div class="search-bar">
+                <input type="text" id="search" placeholder="Pesquisar...">
+                <select id="filter">
+                    <option value="all">Todos</option>
+                    <option value="email">Email</option>
+                    <option value="abbreviation">Abreviação</option>
+                    <option value="company">Empresa</option>
+                </select>
+            </div>
+            <button id="logoutBtn">Sair</button>
+        </header>
+
+        <div class="buttons">
+            <button id="addPasswordBtn">Adicionar Senha</button>
+            <button id="addNomenclatureBtn">Adicionar Nomenclatura</button>
+            <button id="exportDataBtn">Exportar Dados</button>
+            <button id="importDataBtn">Importar Dados</button>
+            <button id="addCompanyBtn">Adicionar Empresa</button>
+        </div>
+
+        <!-- Popup para adicionar senhas -->
+        <div id="passwordPopup" class="popup">
+            <div class="popup-content">
+                <span class="close" id="closePasswordPopup">&times;</span>
+                <h2>Adicionar Senha</h2>
+                <form id="passwordForm">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" required>
+                    <label for="password">Senha:</label>
+                    <input type="text" id="password" required>
+                    <label for="platform">Plataforma:</label>
+                    <input type="text" id="platform" required>
+                    <label for="company">Empresa:</label>
+                    <select id="company" required>
+                        <!-- Aqui serão adicionadas as empresas -->
+                    </select>
+                    <button type="submit">Adicionar Senha</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Popup para adicionar nomenclaturas -->
+        <div id="nomenclaturePopup" class="popup">
+            <div class="popup-content">
+                <span class="close" id="closeNomenclaturePopup">&times;</span>
+                <h2>Adicionar Nomenclatura</h2>
+                <form id="nomenclatureForm">
+                    <label for="abbreviation">Abreviação:</label>
+                    <input type="text" id="abbreviation" required>
+                    <label for="meaning">Significado:</label>
+                    <input type="text" id="meaning" required>
+                    <label for="company">Empresa:</label>
+                    <select id="company" required>
+                        <!-- Aqui serão adicionadas as empresas -->
+                    </select>
+                    <button type="submit">Adicionar Nomenclatura</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Popup para adicionar empresas -->
+        <div id="companyPopup" class="popup">
+            <div class="popup-content">
+                <span class="close" id="closeCompanyPopup">&times;</span>
+                <h2>Adicionar Empresa</h2>
+                <form id="companyForm">
+                    <label for="companyName">Nome da Empresa:</label>
+                    <input type="text" id="companyName" required>
+                    <label for="companyColor">Cor da Bolinha:</label>
+                    <input type="color" id="companyColor" required>
+                    <button type="submit">Adicionar Empresa</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Popup para importar dados -->
+        <div id="importDataPopup" class="popup">
+            <div class="popup-content">
+                <span class="close" id="closeImportDataPopup">&times;</span>
+                <h2>Importar Dados</h2>
+                <form id="importDataForm">
+                    <label for="importFile">Selecione um arquivo:</label>
+                    <input type="file" id="importFile" required>
+                    <button type="submit">Importar</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Popup para exportar dados -->
+        <div id="exportDataPopup" class="popup">
+            <div class="popup-content">
+                <span class="close" id="closeExportDataPopup">&times;</span>
+                <h2>Exportar Dados</h2>
+                <form id="exportDataForm">
+                    <label for="exportFormat">Formato de Exportação:</label>
+                    <select id="exportFormat" required>
+                        <option value="json">JSON</option>
+                        <option value="csv">CSV</option>
+                        <option value="excel">Excel</option>
+                    </select>
+                    <button type="submit">Exportar</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Tabela de senhas -->
+        <div class="table-section">
+            <h2>Senhas</h2>
+            <div id="passwordsTable" class="card-container">
+                <!-- Aqui serão adicionadas as senhas -->
+            </div>
+        </div>
+
+        <!-- Tabela de nomenclaturas -->
+        <div class="table-section">
+            <h2>Nomenclaturas</h2>
+            <div id="nomenclaturesTable" class="card-container">
+                <!-- Aqui serão adicionadas as nomenclaturas -->
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>

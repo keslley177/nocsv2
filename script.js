@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('loginForm').addEventListener('submit', function(event) {
         event.preventDefault();
         const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
+        const password = document.getElementById('loginPassword').value;
 
         if (username === 'nocsv2' && password === 'sv2tecno') {
             localStorage.setItem('isLoggedIn', true);
@@ -41,12 +41,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Eventos para abrir popups
     document.getElementById('addPasswordBtn').addEventListener('click', function() {
         document.getElementById('passwordPopup').style.display = 'flex';
-        populateCompanySelect(document.getElementById('passwordForm').querySelector('#company'));
+        populateCompanySelect(document.getElementById('passwordForm').querySelector('#companySelect'));
     });
 
     document.getElementById('addNomenclatureBtn').addEventListener('click', function() {
         document.getElementById('nomenclaturePopup').style.display = 'flex';
-        populateCompanySelect(document.getElementById('nomenclatureForm').querySelector('#company'));
+        populateCompanySelect(document.getElementById('nomenclatureForm').querySelector('#nomenclatureCompanySelect'));
     });
 
     document.getElementById('exportDataBtn').addEventListener('click', function() {
@@ -134,8 +134,8 @@ async function loadData() {
 
     updatePasswordsTable();
     updateNomenclaturesTable();
-    populateCompanySelect(document.getElementById('passwordForm').querySelector('#company'));
-    populateCompanySelect(document.getElementById('nomenclatureForm').querySelector('#company'));
+    populateCompanySelect(document.getElementById('passwordForm').querySelector('#companySelect'));
+    populateCompanySelect(document.getElementById('nomenclatureForm').querySelector('#nomenclatureCompanySelect'));
 }
 
 async function loadFromSupabase(tableName) {
@@ -149,9 +149,9 @@ async function loadFromSupabase(tableName) {
 
 async function addPassword() {
     const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    const password = document.getElementById('passwordInput').value;
     const platform = document.getElementById('platform').value;
-    const company = document.getElementById('company').value;
+    const company = document.getElementById('companySelect').value;
 
     const { data, error } = await supabase.from('passwords').insert([{ email, password, platform, company }]);
     if (error) {
@@ -166,7 +166,7 @@ async function addPassword() {
 async function addNomenclature() {
     const abbreviation = document.getElementById('abbreviation').value;
     const meaning = document.getElementById('meaning').value;
-    const company = document.getElementById('company').value;
+    const company = document.getElementById('nomenclatureCompanySelect').value;
 
     const { data, error } = await supabase.from('nomenclatures').insert([{ abbreviation, meaning, company }]);
     if (error) {
@@ -266,7 +266,7 @@ function createCard(data, type, index) {
     return card;
 }
 
-function editItem(card, data, type, index) {
+async function editItem(card, data, type, index) {
     const title = card.querySelector('h3');
     const content = card.querySelector('p');
     const tags = card.querySelector('.tags');
@@ -290,7 +290,7 @@ function editItem(card, data, type, index) {
     actions.innerHTML = '';
     card.appendChild(editForm);
 
-    editForm.addEventListener('submit', function(event) {
+    editForm.addEventListener('submit', async function(event) {
         event.preventDefault();
         const newTitle = document.getElementById('editTitle').value;
         const newContent = document.getElementById('editContent').value;

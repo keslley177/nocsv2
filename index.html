@@ -8,6 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Commit+Mono&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
     <div id="loginPopup" class="popup">
@@ -17,7 +18,7 @@
                 <label for="username">Usuário:</label>
                 <input type="text" id="username" required>
                 <label for="password">Senha:</label>
-                <input type="password" id="password" required>
+                <input type="password" id="loginPassword" required>
                 <button type="submit">Entrar</button>
             </form>
         </div>
@@ -55,11 +56,11 @@
                     <label for="email">Email:</label>
                     <input type="email" id="email" required>
                     <label for="password">Senha:</label>
-                    <input type="text" id="password" required>
+                    <input type="text" id="passwordInput" required>
                     <label for="platform">Plataforma:</label>
                     <input type="text" id="platform" required>
                     <label for="company">Empresa:</label>
-                    <select id="company" required>
+                    <select id="companySelect" required>
                         <!-- Aqui serão adicionadas as empresas -->
                     </select>
                     <button type="submit">Adicionar Senha</button>
@@ -78,7 +79,7 @@
                     <label for="meaning">Significado:</label>
                     <input type="text" id="meaning" required>
                     <label for="company">Empresa:</label>
-                    <select id="company" required>
+                    <select id="nomenclatureCompanySelect" required>
                         <!-- Aqui serão adicionadas as empresas -->
                     </select>
                     <button type="submit">Adicionar Nomenclatura</button>
